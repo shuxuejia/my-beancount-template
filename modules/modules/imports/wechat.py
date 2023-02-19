@@ -16,9 +16,9 @@ from .base import Base
 from .deduplicate import Deduplicate
 
 Account零钱通 = 'Assets:FinTech:LQT'
-Account收入红包 = 'Income:Gift:RedPack'
-Account支出红包 = 'Expenses:Social:Gift:RedPack'
-Account余额 = 'Assets:Digital:Wechat'
+Account收入红包 = 'Income:Wechat:RedPacket'
+Account支出红包 = 'Expenses:Wechat:RedPacket-go'
+Account余额 = 'Assets:Digital:Wechat:Cash '
 
 
 class WeChat(Base):
@@ -103,7 +103,7 @@ class WeChat(Base):
                         entry, account, amount_string, 'CNY')
                 data.create_simple_posting(
                     entry, accounts[row['支付方式']], None, None)
-            elif row['当前状态'] == '已存入零钱' or row['当前状态'] == '已收钱':
+            elif row['当前状态'] == '已存入零钱' or row['当前状态'] == '对方已收钱':
                 if '微信红包' in row['交易类型']:
                     if entry.narration == '/':
                         entry = entry._replace(narration=row['交易类型'])
